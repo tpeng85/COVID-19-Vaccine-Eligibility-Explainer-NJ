@@ -41,12 +41,7 @@ def restart():
     global previous_responses
     previous_responses = {}
     return redirect('/', code=302)
-    # current_question_text, more_information, yes_response_text = get_current_question_info(current_question_id)
-    # return render_template('index.html',
-    #                        current_question_text=current_question_text,
-    #                        yes_response_text=yes_response_text,
-    #                        more_information=more_information,
-    #                        previous_responses=previous_responses)
+
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
