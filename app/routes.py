@@ -1,6 +1,6 @@
 from typing import Any
 
-from flask import render_template, request
+from flask import render_template, request, redirect
 from pandas import Series, DataFrame
 
 from app import app
@@ -33,6 +33,20 @@ def get_current_question_info(current_question_id: int):
         'yes_response_text')
     return (current_question_text, more_information, yes_response_text)
 
+
+@app.route('/restart', methods=['POST'])
+def restart():
+    global current_question_id
+    current_question_id = 0
+    global previous_responses
+    previous_responses = {}
+    return redirect('/', code=302)
+    # current_question_text, more_information, yes_response_text = get_current_question_info(current_question_id)
+    # return render_template('index.html',
+    #                        current_question_text=current_question_text,
+    #                        yes_response_text=yes_response_text,
+    #                        more_information=more_information,
+    #                        previous_responses=previous_responses)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
