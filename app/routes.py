@@ -17,7 +17,10 @@ questions_df = pd.read_csv('questions.csv')
 results_df = pd.read_csv('results.csv')
 
 def get_cell_contents_from_single_row(row: Series, column_name: str) -> Any:
-    return row.iloc[0][column_name]
+    cell_contents = row.iloc[0][column_name]
+    if isinstance(cell_contents, str) and cell_contents == '-':
+        cell_contents = ''  # can't have blank cells? not sure what happened here
+    return cell_contents
 
 
 def get_row_from_id(df: DataFrame, id: int) -> Series:
