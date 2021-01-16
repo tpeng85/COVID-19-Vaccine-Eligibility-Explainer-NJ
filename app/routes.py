@@ -40,6 +40,17 @@ def get_current_question_info(current_question_id: int):
         'yes_response_text')
     return (current_question_text, more_information, yes_response_text)
 
+def get_questionnaire_template_from_survey_id(survey_id:str):
+    # assumes this survey isn't at a result page, i.e. active_surveys[survey_id].current_question_id isn't negative.
+    global active_surveys
+    current_survey_object = active_surveys[survey_id]
+    current_question_text, more_information, yes_response_text = get_current_question_info(current_survey_object.current_question_id)
+    return render_template('questionnaire.html',
+                           current_question_text=current_question_text,
+                           yes_response_text=yes_response_text,
+                           more_information=more_information,
+                           previous_responses=current_survey_object.previous_responses,
+                           survey_id=survey_id)
 
 @app.route('/restart', methods=['POST'])
 def restart():
@@ -57,9 +68,7 @@ def questionnaire():
         active_surveys[survey_id] = SurveyState()
     elif request.method == 'POST':
         survey_id = request.form['survey_id']
-    current_survey_object = active_surveys[survey_id]
-
-    if request.method == 'POST':
+        current_survey_object = active_surveys[survey_id]
         # Update the responses so far
         current_question_row = get_row_from_id(questions_df, current_survey_object.current_question_id)
         current_question_text = get_cell_contents_from_single_row(
@@ -74,14 +83,7 @@ def questionnaire():
             status = get_cell_contents_from_single_row(result_row, 'status')
             more_status_information = get_cell_contents_from_single_row(result_row, 'More information')
             return render_template('result.html', status=status, more_status_information=more_status_information, survey_id=survey_id)
-
-    current_question_text, more_information, yes_response_text = get_current_question_info(current_survey_object.current_question_id)
-    return render_template('questionnaire.html',
-                           current_question_text=current_question_text,
-                           yes_response_text=yes_response_text,
-                           more_information=more_information,
-                           previous_responses=current_survey_object.previous_responses,
-                           survey_id=survey_id)
+    return get_questionnaire_template_from_survey_id(survey_id)
 
 @app.route('/')
 def index():
