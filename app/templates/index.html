@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>COVID-19 vaccine eligibility questions</title>
+</head>
+<body>
+  <h3>{{ current_question_text }}</h3>
+  <form action="" method="post">
+    <input type="submit" name="Yes ({{yes_response_text}})" value="Yes" />
+  </form>
+  <form action="" method="post">
+    <input type="submit" name="No" value="No" />
+  </form>
+  <form action="" method="post">
+    <input type="submit" name="Unsure" value="Unsure" />
+  </form>
+  <h5>{{ more_information}}</h5>
+  <div>Previous responses: {{previous_responses}}</div>
+</body>
+</html>
