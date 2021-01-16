@@ -1,5 +1,5 @@
-result_id,status,More information
--1,You are eligible for a vaccine right now because you are in phase 1A.,currently eligible as of 12/15/2020
+id,status,More information
+-1,You are eligible for a vaccine right now because you are in phase 1A.,Phase 1A started on 12/15/2020.
 -2,You are in phase 1B. Vaccines haven’t started coming out for phase 1B yet.,"If you’d like to find out when more information becomes available, you can pre-register for a vaccine at https://covidvaccine.nj.gov/"
 -3,You are in phase 1C. Vaccines haven’t started coming out for phase 1B yet.,"If you’d like to find out when more information becomes available, you can pre-register for a vaccine at https://covidvaccine.nj.gov/"
 -4,You are in phase 2. Vaccines haven’t started coming out for phase 1B yet.,"If you’d like to find out when more information becomes available, you can pre-register for a vaccine at https://covidvaccine.nj.gov/"

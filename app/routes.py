@@ -9,21 +9,21 @@ import pandas as pd
 
 current_question_id = 0
 previous_responses = {}  # map previous question texts to previous answers.
-df = pd.read_csv('questions.csv')
-
+questions_df = pd.read_csv('questions.csv')
+results_df = pd.read_csv('results.csv')
 
 def get_cell_contents_from_single_row(row: Series, column_name: str) -> Any:
     return row.iloc[0][column_name]
 
 
-def get_row_from_question_id(df: DataFrame, question_id: str) -> Series:
-    return df.loc[df['question_id'] == question_id]
+def get_row_from_id(df: DataFrame, id: str) -> Series:
+    return df.loc[df['id'] == id]
 
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     global current_question_id
-    current_question_row = get_row_from_question_id(df, current_question_id)
+    current_question_row = get_row_from_id(questions_df, current_question_id)
     current_question_text = get_cell_contents_from_single_row(
         current_question_row, 'question_text')
 
@@ -35,8 +35,12 @@ def index():
         # Need to update the other information now that we have a new current question
         if current_question_id < 0:
             # need to exit this loop and immediately go to an ending screen
-            return 'hi'
-        current_question_row = get_row_from_question_id(df, current_question_id)
+            result_id = current_question_id
+            result_row = get_row_from_id(results_df, result_id)
+            status = get_cell_contents_from_single_row(result_row, 'status')
+            more_status_information = get_cell_contents_from_single_row(result_row, 'More information')
+            return render_template('result.html', status=status, more_status_information=more_status_information)
+        current_question_row = get_row_from_id(questions_df, current_question_id)
         current_question_text = get_cell_contents_from_single_row(
             current_question_row, 'question_text')
 
