@@ -7,13 +7,13 @@
 <body>
   <h3>{{ current_question_text }}</h3>
   <form action="" method="post">
-    <input type="submit" name="Yes" value="Yes ({{yes_response_text}})" />
-  </form>
-  <form action="" method="post">
-    <input type="submit" name="No" value="No" />
-  </form>
-  <form action="" method="post">
-    <input type="submit" name="Unsure" value="Unsure" />
+    <input type="submit" name="user_answer" value="Yes" /> <div> ({{yes_response_text}})</div>
+    <br>
+    <input type="submit" name="user_answer" value="No" />
+    <br>
+    <br>
+    <input type="submit" name="user_answer" value="Unsure" />
+    <input type="hidden" name="survey_id" value="{{survey_id}}">
   </form>
   <h5>{{ more_information}}</h5>
   <div>Previous responses: {{previous_responses}}</div>
