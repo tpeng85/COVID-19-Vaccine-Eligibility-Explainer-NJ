@@ -17,5 +17,10 @@
   </form>
   <h5>{{ more_information}}</h5>
   <div>Previous responses: {{previous_responses}}</div>
+  <br>
+  <form action="restart" method="post">
+    <input type="submit" name="Start over" value="Start over" />
+    <input type="hidden" name="survey_id" value="{{survey_id}}">
+  </form>
 </body>
 </html>
