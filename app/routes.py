@@ -49,7 +49,7 @@ def questionnaire():
 
     if request.method == 'POST':
         assert len(list(request.form.values())) == 1
-        user_answer = list(request.form.values())[0] # string "Yes", "No", or "Unsure"
+        user_answer = list(request.form.keys())[0] # string "Yes", "No", or "Unsure"
         # Update the responses so far
         current_question_row = get_row_from_id(questions_df, current_question_id)
         current_question_text = get_cell_contents_from_single_row(
