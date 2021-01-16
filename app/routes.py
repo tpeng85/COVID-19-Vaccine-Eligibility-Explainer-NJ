@@ -44,7 +44,7 @@ def restart():
 
 
 @app.route('/', methods = ['POST', 'GET'])
-def index():
+def questionnaire():
     global current_question_id
 
     if request.method == 'POST':
@@ -66,7 +66,7 @@ def index():
             return render_template('result.html', status=status, more_status_information=more_status_information)
 
     current_question_text, more_information, yes_response_text = get_current_question_info(current_question_id)
-    return render_template('index.html',
+    return render_template('questionnaire.html',
                            current_question_text=current_question_text,
                            yes_response_text=yes_response_text,
                            more_information=more_information,
