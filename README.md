@@ -16,17 +16,20 @@ To make it easier, I made this website so you can quickly find the vaccine rollo
 
 --
 
+## How to run the code
 
-Create the venv: `python3.8 -m venv venv`
+You will need python version 3.8.
 
-Activating the environment: `source venv/bin/activate`
+* Create the venv: `python3.8 -m venv venv`
 
-When in the environment:
+* To install from requirements.txt: `pip install -r requirements.txt`
+
+* Activating the environment: `source venv/bin/activate`
 
 * Run `export FLASK_APP=main.py`
 
 * To run the server: `flask run` or `python main.py`
 
-* To update requirements file: `pip freeze > requirements.txt`
+## Updating the requirements.txt file
 
-* To install from requirements.txt: `pip install -r requirements.txt`
+* `pip freeze > requirements.txt`
