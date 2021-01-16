@@ -46,7 +46,7 @@ def restart():
     survey_id = request.form['survey_id']
     global active_surveys
     del active_surveys[survey_id]
-    return redirect('questionnaire')
+    return redirect('/')
 
 @app.route('/questionnaire', methods = ['POST', 'GET'])
 def questionnaire():
