@@ -33,14 +33,22 @@ def get_current_question_info(current_question_id: int):
         'yes_response_text')
     return (current_question_text, more_information, yes_response_text)
 
+def pretty_print_previous_responses(previous_responses):
+    responses_to_display = [
+        (get_cell_contents_from_single_row(get_row_from_id(questions_df, question_id), 'question_text'), user_answer)
+        for (question_id, user_answer) in previous_responses
+    ]
+    return responses_to_display
+
 def get_questionnaire_template(current_question_id: int, previous_responses: List[Tuple[int, str]]):
     # assumes this survey isn't at a result page, i.e. active_surveys[survey_id].current_question_id isn't negative.
     current_question_text, more_information, yes_response_text = get_current_question_info(current_question_id)
+
     return render_template('questionnaire.html',
                            current_question_text=current_question_text,
                            yes_response_text=yes_response_text,
                            more_information=more_information,
-                           previous_responses=previous_responses,
+                           previous_responses=pretty_print_previous_responses(previous_responses),
                            current_question_id=current_question_id,
                            title="COVID-19 vaccine eligibility questionnaire")
 
