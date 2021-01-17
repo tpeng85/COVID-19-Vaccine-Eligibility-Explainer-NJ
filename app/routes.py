@@ -103,3 +103,7 @@ def index():
 @app.route('/preregister')
 def preregister():
     return render_template('preregister.html', title="Preregistration")
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', title='Contact')
