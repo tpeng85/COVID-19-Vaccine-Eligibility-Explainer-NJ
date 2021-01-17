@@ -46,20 +46,18 @@ def get_questionnaire_template(current_question_id: int, previous_responses: Lis
 @app.route('/restart', methods=['POST'])
 def restart():
     resp = make_response(redirect('/'))
-    resp.set_cookie('current_question_id', '0')
     resp.set_cookie('previous_responses', json.dumps([]))
     return resp
 
-@app.route('/questionnaire', methods = ['POST', 'GET'])
-def questionnaire():
+@app.route('/questionnaire/<int:current_question_id>', methods = ['POST', 'GET'])
+def questionnaire(current_question_id=0):
     previous_responses = json.loads(request.cookies.get('previous_responses', '[]'))
+    print('previous_responses' + str(previous_responses))
     if request.method == 'GET':
-        current_question_id = int(request.cookies.get('current_question_id', '0'))
         return get_questionnaire_template(current_question_id, previous_responses)
     elif request.method == 'POST':
-        question_id = int(request.form['current_question_id'])
         user_answer = request.form['user_answer'] # string "Yes", "No", or "Unsure"
-        question_row = get_row_from_id(questions_df, question_id)
+        question_row = get_row_from_id(questions_df, current_question_id)
         next_question_id = get_cell_contents_from_single_row(question_row, user_answer + '_response_next')
         if next_question_id < 0:
             result_id = next_question_id
@@ -67,9 +65,8 @@ def questionnaire():
             status = get_cell_contents_from_single_row(result_row, 'status')
             more_status_information = get_cell_contents_from_single_row(result_row, 'More information')
             return render_template('result.html', status=status, more_status_information=more_status_information)
-        previous_responses.append((question_id, user_answer))
+        previous_responses.append((current_question_id, user_answer))
         resp = make_response(get_questionnaire_template(next_question_id, previous_responses))
-        resp.set_cookie('current_question_id', str(next_question_id))
         resp.set_cookie('previous_responses', json.dumps(previous_responses))
         return resp
 
