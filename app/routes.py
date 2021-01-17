@@ -46,7 +46,6 @@ def get_questionnaire_template(current_question_id: int, previous_responses: Lis
 @app.route('/restart', methods=['POST'])
 def restart():
     resp = make_response(redirect('/'))
-    resp.set_cookie('current_question_id', '0')
     resp.set_cookie('previous_responses', json.dumps([]))
     return resp
 
