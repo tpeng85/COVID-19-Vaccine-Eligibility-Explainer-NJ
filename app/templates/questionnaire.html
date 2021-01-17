@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>COVID-19 vaccine eligibility questions</title>
-</head>
-<body>
-  <h3>{{ current_question_text }}</h3>
-  <form action="/questionnaire/{{current_question_id}}" method="post">
-    <input type="submit" name="user_answer" value="Yes" /> <div> {{yes_response_text}}</div>
-    <br>
-    <input type="submit" name="user_answer" value="No" />
-    <br>
-    <br>
-    <input type="submit" name="user_answer" value="Unsure" />
-  </form>
-  <h5>{{ more_information}}</h5>
-  <div>Previous responses: {{previous_responses}}</div>
-  <br>
+{% extends "base.html" %}
 
-  <form action="/restart" method="post">
-    <input type="submit" name="Start over" value="Start over" />
-  </form>
-</body>
-</html>
+{% block content %}
+
+<h3>{{ current_question_text }}</h3>
+<form action="/questionnaire/{{current_question_id}}" method="post">
+  <input type="submit" name="user_answer" value="Yes" /> <div> {{yes_response_text}}</div>
+  <br>
+  <input type="submit" name="user_answer" value="No" />
+  <br>
+  <br>
+  <input type="submit" name="user_answer" value="Unsure" />
+</form>
+<h5>{{ more_information}}</h5>
+<div>Previous responses: {{previous_responses}}</div>
+<br>
+
+<form action="/restart" method="post">
+  <input type="submit" name="Start over" value="Start over" />
+</form>
+
+{% endblock %}

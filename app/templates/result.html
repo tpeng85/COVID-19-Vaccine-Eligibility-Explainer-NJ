@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>COVID-19 vaccine eligibility status</title>
-</head>
-<body>
-  <h1>{{status}}</h1>
-  <h3>More information: {{more_status_information}}</h3>
-  <form action="/restart" method="post">
-    <input type="submit" name="Start over" value="Start over" />
-  </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{status}}</h1>
+<h3>More information: {{more_status_information}}</h3>
+<form action="/restart" method="post">
+  <input type="submit" name="Start over" value="Start over" />
+</form>
+
+{% endblock %}

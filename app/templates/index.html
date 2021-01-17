@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-</head>
-<body>
-  <h1>Do you live in New Jersey? Do you know if you're eligible for the COVID-19 vaccine?</h1>
-  <form action="/questionnaire/0">
-    <input type="submit" value="Find out"/>
-  </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Do you live in New Jersey? Do you know if you're eligible for the COVID-19 vaccine?</h1>
+<form action="/questionnaire/0">
+  <input type="submit" value="Find out"/>
+</form>
+
+{% endblock %}

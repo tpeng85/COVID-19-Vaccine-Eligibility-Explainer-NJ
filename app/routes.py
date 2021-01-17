@@ -41,7 +41,8 @@ def get_questionnaire_template(current_question_id: int, previous_responses: Lis
                            yes_response_text=yes_response_text,
                            more_information=more_information,
                            previous_responses=previous_responses,
-                           current_question_id=current_question_id)
+                           current_question_id=current_question_id,
+                           title="COVID-19 vaccine eligibility questionnaire")
 
 @app.route('/restart', methods=['POST'])
 def restart():
@@ -77,8 +78,9 @@ def result(result_id):
                                                                 'More information')
     return render_template('result.html',
                            status=status,
-                           more_status_information=more_status_information)
+                           more_status_information=more_status_information,
+                           title="COVID-19 vaccine eligibility status")
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title="Home")
