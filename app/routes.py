@@ -1,18 +1,11 @@
-from typing import Any
+from typing import Any, List, Tuple
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, make_response
 from pandas import Series, DataFrame
-import uuid
+import json
 from app import app
 import pandas as pd
 
-class SurveyState():
-    # Maybe there's something involving sessions but I'm not too familiar with how it works. TODO: ??
-    def __init__(self):
-        self.current_question_id = 0
-        self.previous_responses = [] # list of tuples of the form (question_id, answer).
-
-active_surveys = {}  # map string version of uuid4s to SurveyState objects
 questions_df = pd.read_csv('questions.csv')
 results_df = pd.read_csv('results.csv')
 
@@ -40,60 +33,45 @@ def get_current_question_info(current_question_id: int):
         'yes_response_text')
     return (current_question_text, more_information, yes_response_text)
 
-def get_questionnaire_template_from_survey_id(survey_id:str):
+def get_questionnaire_template(current_question_id: int, previous_responses: List[Tuple[int, str]]):
     # assumes this survey isn't at a result page, i.e. active_surveys[survey_id].current_question_id isn't negative.
-    global active_surveys
-    current_survey_object = active_surveys[survey_id]
-    current_question_text, more_information, yes_response_text = get_current_question_info(current_survey_object.current_question_id)
+    current_question_text, more_information, yes_response_text = get_current_question_info(current_question_id)
     return render_template('questionnaire.html',
                            current_question_text=current_question_text,
                            yes_response_text=yes_response_text,
                            more_information=more_information,
-                           previous_responses=current_survey_object.previous_responses,
-                           survey_id=survey_id)
-
-@app.route('/back', methods=['POST'])
-def back():
-    # remove the most recent response. if there's no response, go back to the home page.
-    survey_id = request.form['survey_id']
-    global active_surveys
-    current_survey_object = active_surveys[survey_id]
-    if current_survey_object.previous_responses == []:
-        return redirect('/')
-    previous_question_id, _ = current_survey_object.previous_responses.pop()
-    current_survey_object.current_question_id = previous_question_id
-    return get_questionnaire_template_from_survey_id(survey_id)
+                           previous_responses=previous_responses,
+                           current_question_id=current_question_id)
 
 @app.route('/restart', methods=['POST'])
 def restart():
-    survey_id = request.form['survey_id']
-    global active_surveys
-    del active_surveys[survey_id]
-    return redirect('/')
+    resp = make_response(redirect('/'))
+    resp.set_cookie('current_question_id', '0')
+    resp.set_cookie('previous_responses', json.dumps([]))
+    return resp
 
 @app.route('/questionnaire', methods = ['POST', 'GET'])
 def questionnaire():
-    global active_surveys
-    # only the first request to start the survey will be a GET request-- everything after will be POST
+    previous_responses = json.loads(request.cookies.get('previous_responses', '[]'))
     if request.method == 'GET':
-        survey_id = str(uuid.uuid4())
-        active_surveys[survey_id] = SurveyState()
+        current_question_id = int(request.cookies.get('current_question_id', '0'))
+        return get_questionnaire_template(current_question_id, previous_responses)
     elif request.method == 'POST':
-        survey_id = request.form['survey_id']
-        current_survey_object = active_surveys[survey_id]
-        # Update the responses so far
-        current_question_row = get_row_from_id(questions_df, current_survey_object.current_question_id)
+        question_id = int(request.form['current_question_id'])
         user_answer = request.form['user_answer'] # string "Yes", "No", or "Unsure"
-        current_survey_object.previous_responses.append((current_survey_object.current_question_id, user_answer))
-        current_survey_object.current_question_id = get_cell_contents_from_single_row(current_question_row, user_answer + '_response_next')
-        if current_survey_object.current_question_id < 0:
-            # need to exit this loop and immediately go to an ending screen
-            result_id = current_survey_object.current_question_id
+        question_row = get_row_from_id(questions_df, question_id)
+        next_question_id = get_cell_contents_from_single_row(question_row, user_answer + '_response_next')
+        if next_question_id < 0:
+            result_id = next_question_id
             result_row = get_row_from_id(results_df, result_id)
             status = get_cell_contents_from_single_row(result_row, 'status')
             more_status_information = get_cell_contents_from_single_row(result_row, 'More information')
-            return render_template('result.html', status=status, more_status_information=more_status_information, survey_id=survey_id)
-    return get_questionnaire_template_from_survey_id(survey_id)
+            return render_template('result.html', status=status, more_status_information=more_status_information)
+        previous_responses.append((question_id, user_answer))
+        resp = make_response(get_questionnaire_template(next_question_id, previous_responses))
+        resp.set_cookie('current_question_id', str(next_question_id))
+        resp.set_cookie('previous_responses', json.dumps(previous_responses))
+        return resp
 
 @app.route('/')
 def index():

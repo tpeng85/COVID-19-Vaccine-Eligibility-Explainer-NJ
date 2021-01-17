@@ -13,19 +13,14 @@
     <br>
     <br>
     <input type="submit" name="user_answer" value="Unsure" />
-    <input type="hidden" name="survey_id" value="{{survey_id}}">
+    <input type="hidden" name="current_question_id" value="{{current_question_id}}">
   </form>
   <h5>{{ more_information}}</h5>
   <div>Previous responses: {{previous_responses}}</div>
   <br>
-  <form action="back" method="post">
-    <input type="submit" name="Back" value="Back" />
-    <input type="hidden" name="survey_id" value="{{survey_id}}">
-  </form>
 
   <form action="restart" method="post">
     <input type="submit" name="Start over" value="Start over" />
-    <input type="hidden" name="survey_id" value="{{survey_id}}">
   </form>
 </body>
 </html>
