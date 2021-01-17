@@ -99,3 +99,7 @@ def result(result_id):
 @app.route('/')
 def index():
     return render_template('index.html', title="Home")
+
+@app.route('/preregister')
+def preregister():
+    return render_template('preregister.html', title="Preregistration")
