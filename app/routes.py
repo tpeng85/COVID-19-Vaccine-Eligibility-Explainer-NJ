@@ -10,7 +10,7 @@ class SurveyState():
     # Maybe there's something involving sessions but I'm not too familiar with how it works. TODO: ??
     def __init__(self):
         self.current_question_id = 0
-        self.previous_responses = {}  # map previous question texts to previous answers.
+        self.previous_responses = [] # list of tuples of the form (question_id, answer).
 
 active_surveys = {}  # map string version of uuid4s to SurveyState objects
 questions_df = pd.read_csv('questions.csv')
@@ -52,6 +52,18 @@ def get_questionnaire_template_from_survey_id(survey_id:str):
                            previous_responses=current_survey_object.previous_responses,
                            survey_id=survey_id)
 
+@app.route('/back', methods=['POST'])
+def back():
+    # remove the most recent response. if there's no response, go back to the home page.
+    survey_id = request.form['survey_id']
+    global active_surveys
+    current_survey_object = active_surveys[survey_id]
+    if current_survey_object.previous_responses == []:
+        return redirect('/')
+    previous_question_id, _ = current_survey_object.previous_responses.pop()
+    current_survey_object.current_question_id = previous_question_id
+    return get_questionnaire_template_from_survey_id(survey_id)
+
 @app.route('/restart', methods=['POST'])
 def restart():
     survey_id = request.form['survey_id']
@@ -71,10 +83,8 @@ def questionnaire():
         current_survey_object = active_surveys[survey_id]
         # Update the responses so far
         current_question_row = get_row_from_id(questions_df, current_survey_object.current_question_id)
-        current_question_text = get_cell_contents_from_single_row(
-            current_question_row, 'question_text')
         user_answer = request.form['user_answer'] # string "Yes", "No", or "Unsure"
-        current_survey_object.previous_responses[current_question_text] = user_answer
+        current_survey_object.previous_responses.append((current_survey_object.current_question_id, user_answer))
         current_survey_object.current_question_id = get_cell_contents_from_single_row(current_question_row, user_answer + '_response_next')
         if current_survey_object.current_question_id < 0:
             # need to exit this loop and immediately go to an ending screen
