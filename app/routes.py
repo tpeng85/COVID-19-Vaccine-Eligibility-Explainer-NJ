@@ -8,6 +8,7 @@ import pandas as pd
 
 questions_df = pd.read_csv('questions.csv')
 results_df = pd.read_csv('results.csv')
+contact_form_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfI-ozQYUJ1QnrFwuVbKEkK3n-LBke1g0PDkQH_D5fXHXP1UA/viewform?embedded=true'
 
 def get_cell_contents_from_single_row(row: Series, column_name: str) -> Any:
     cell_contents = row.iloc[0][column_name]
@@ -94,7 +95,8 @@ def result(result_id):
     return render_template('result.html',
                            status=status,
                            more_status_information=more_status_information,
-                           title="COVID-19 vaccine eligibility status")
+                           title="COVID-19 vaccine eligibility status",
+                           contact_form_url=contact_form_url)
 
 @app.route('/')
 def index():
@@ -106,4 +108,4 @@ def preregister():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', title='Contact')
+    return render_template('contact.html', title='Contact', contact_form_url=contact_form_url)
