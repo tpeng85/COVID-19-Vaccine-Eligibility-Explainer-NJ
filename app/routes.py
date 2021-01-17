@@ -62,16 +62,23 @@ def questionnaire(current_question_id):
         question_row = get_row_from_id(questions_df, current_question_id)
         next_question_id = get_cell_contents_from_single_row(question_row, user_answer + '_response_next')
         if next_question_id < 0:
-            result_id = next_question_id
-            result_row = get_row_from_id(results_df, result_id)
-            status = get_cell_contents_from_single_row(result_row, 'status')
-            more_status_information = get_cell_contents_from_single_row(result_row, 'More information')
-            return render_template('result.html', status=status, more_status_information=more_status_information)
+            return redirect(url_for('result', result_id=next_question_id))
         previous_responses.append((current_question_id, user_answer))
         current_question_id = next_question_id
         resp = make_response(redirect(url_for('questionnaire', current_question_id=current_question_id)))
         resp.set_cookie('previous_responses', json.dumps(previous_responses))  # Ensure that previous responses gets passed along when we send the user to the new page
         return resp
+
+@app.route('/result/<string:result_id>')
+def result(result_id):
+    result_id = int(result_id)  # string in the url because flask only accepts nonnegative integers: https://github.com/pallets/flask/issues/2643
+    result_row = get_row_from_id(results_df, result_id)
+    status = get_cell_contents_from_single_row(result_row, 'status')
+    more_status_information = get_cell_contents_from_single_row(result_row,
+                                                                'More information')
+    return render_template('result.html',
+                           status=status,
+                           more_status_information=more_status_information)
 
 @app.route('/')
 def index():
