@@ -6,7 +6,7 @@
 </head>
 <body>
   <h3>{{ current_question_text }}</h3>
-  <form action="questionnaire" method="post">
+  <form action="/questionnaire/{{current_question_id}}" method="post">
     <input type="submit" name="user_answer" value="Yes" /> <div> {{yes_response_text}}</div>
     <br>
     <input type="submit" name="user_answer" value="No" />
@@ -19,7 +19,7 @@
   <div>Previous responses: {{previous_responses}}</div>
   <br>
 
-  <form action="restart" method="post">
+  <form action="/restart" method="post">
     <input type="submit" name="Start over" value="Start over" />
   </form>
 </body>
