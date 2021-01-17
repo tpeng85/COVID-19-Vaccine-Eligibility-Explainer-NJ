@@ -34,11 +34,18 @@ def get_current_question_info(current_question_id: int):
     return (current_question_text, more_information, yes_response_text)
 
 def pretty_print_previous_responses(previous_responses):
-    responses_to_display = [
-        (get_cell_contents_from_single_row(get_row_from_id(questions_df, question_id), 'question_text'), user_answer)
-        for (question_id, user_answer) in previous_responses
-    ]
-    return responses_to_display
+    # using the browser back/forward arrows to navigate history causes weird things with previous_responses because going back doesn't actually delete the change-- there might be a clean way to fix it but I haven't found anything. Instead, we'll just hack around this by only displaying the most recent possible response for each given question. TODO: maybe worth looking into this.
+    question_ids_seen = set()
+    responses_to_display = []
+    for i, response in enumerate(previous_responses[::-1]):
+        question_id, user_answer = response
+        if question_id in question_ids_seen:
+            # this is an outdated response
+            continue
+        question_ids_seen.add(question_id)
+        question_text = (get_cell_contents_from_single_row(get_row_from_id(questions_df, question_id), 'question_text'))
+        responses_to_display.append((question_text, user_answer))
+    return responses_to_display[::-1]
 
 def get_questionnaire_template(current_question_id: int, previous_responses: List[Tuple[int, str]]):
     # assumes this survey isn't at a result page, i.e. active_surveys[survey_id].current_question_id isn't negative.
