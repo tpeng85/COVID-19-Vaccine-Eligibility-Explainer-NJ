@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<h1>Vaccine phase questionnaire</h1>
+
 <h3>{{ current_question_text }}</h3>
 <form action="/questionnaire/{{current_question_id}}" method="post">
   <div> {{yes_response_text}}</div>
