@@ -3,29 +3,52 @@
 {% block content %}
 
 <h1>New Jersey Vaccine Information</h1>
+<br>
+
+<!--
+Unsure how to add an image without making it look weird, have to consider viewing
+experience on both desktop and mobile
+<img src="https://images.unsplash.com/photo-1607326207820-989c6d53a0a2?ixid=MXwx
+MjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w
+=1651&q=80" alt="Vaccine on blue background" id="splash">
+<br>
+<br>
+-->
 
 <div>
   <p>
-    Are you an adult who lives, works, or learns in New Jersey? If you are, the New Jersey government plans to offer you the COVID-19 vaccine <b><a href="https://covid19.nj.gov/faqs/nj-information/assistance-and-benefits/is-the-covid-19-vaccine-free-what-if-i-dont-have-insurance">for free</a>, whether or not you have insurance.</b>
-
+    Are you an adult who lives, works, or learns in New Jersey? If you are, the
+    New Jersey government plans to offer you the COVID-19 vaccine <b>
+    <a href="https://covid19.nj.gov/faqs/nj-information/assistance-and-
+    benefits/is-the-covid-19-vaccine-free-what-if-i-dont-have-insurance">
+    for free</a>, whether or not you have insurance.</b>
   </p>
   <p>
-    The <a href="https://covid19.nj.gov/faqs/nj-information/slowing-the-spread/who-is-eligible-for-vaccination-in-new-jersey-who-is-included-in-the-vaccination-phases">current plan </a> is to offer the vaccine in phases so that high-priority groups can receive the vaccine sooner.
+    The <a href="https://covid19.nj.gov/faqs/nj-information/slowing-the-spread/
+    who-is-eligible-for-vaccination-in-new-jersey-who-is-included-in-the-vaccina
+    tion-phases">current plan </a> is to offer the vaccine in phases so that
+    high-priority groups can receive the vaccine sooner.
   </p>
   <p>
-    Before now, there were only two ways to learn your vaccination phase. You had to either read a
-    <a href="https://covid19.nj.gov/faqs/nj-information/slowing-the-spread/who-is-eligible-for-vaccination-in-new-jersey-who-is-included-in-the-vaccination-phases">long website </a>
+    Before now, there were only two ways to learn your vaccination phase. You
+    had to either read a
+    <a href="https://covid19.nj.gov/faqs/nj-information/slowing-the-spread/
+    who-is-eligible-for-vaccination-in-new-jersey-who-is-included-in-the-
+    vaccination-phases">long website </a>
     with lots of words or fill out a
     <a href="https://covidvaccine.nj.gov/">long form</a>
     with a lot of boxes.
   </p>
+
   <p>
     But what if you don't want to deal with long, complicated websites or sign up for anything right now? That's where this website comes in handy. Now you can instantly find out when you can get the vaccine. Just click the button below to answer a few questions and learn your phase.
   </p>
 </div>
 
+<br>
+
 <form action="/questionnaire/0">
-  <input type="submit" value="Learn if I'm eligible"/>
+  <input type="submit" value="Learn if I'm eligible" id="eligible"/>
 </form>
 
 {% endblock %}

@@ -7,10 +7,69 @@
   {% else %}
   <title>Home</title>
   {% endif %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
+<style>
+
+.navbar {
+  padding-left:40px;
+  background-color: #C0C0C0;
+}
+
+.navbar .navbar-brand {
+  color: #000000;
+}
+
+.navbar-collapse.collapse.in {
+  display: block!important;
+}
+
+.navbar-nav > li{
+  margin-left:15px;
+  margin-right:15px;
+}
+
+.response {
+  background-color: #ffffff;
+  border-radius:8px;
+  padding: 8px;
+  color: #000000;
+  margin-right: 20px;
+  border-width: thin;
+}
+
+#eligible {
+  background-color: #646DF4;
+  border-radius:8px;
+  padding: 12px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 20px;
+  border-width: thin;
+}
+
+#splash{
+  width: 400px;
+  margin-left: 50px;
+}
+
+#restart{
+  background-color: #ffffff;
+  border-radius:8px;
+  padding: 8px;
+  color: #000000;
+  border-width: thin;
+}
+
+p {
+  width: auto;
+}
+
+</style>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/">Vaccinate NJ</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,9 +77,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/questionnaire/0">Am I eligible for the vaccine?</a>
         </li>
@@ -28,7 +84,7 @@
           <a class="nav-link" href="/preregister">What is pre-registration?</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://covid19.nj.gov/faqs">Official frequently asked questions (FAQ)</a>
+          <a class="nav-link" href="https://covid19.nj.gov/faqs">Official FAQ</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://covid19.nj.gov/faqs/nj-information/slowing-the-spread/who-is-eligible-for-vaccination-in-new-jersey-who-is-included-in-the-vaccination-phases">Official phase information</a>
