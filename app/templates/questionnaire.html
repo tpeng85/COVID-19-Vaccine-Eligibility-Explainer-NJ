@@ -4,14 +4,15 @@
 
 <h3>{{ current_question_text }}</h3>
 <form action="/questionnaire/{{current_question_id}}" method="post">
-  <input type="submit" name="user_answer" value="Yes" /> <div> {{yes_response_text}}</div>
+  <div> {{yes_response_text}}</div>
   <br>
-  <input type="submit" name="user_answer" value="No" />
+  <input type="submit" name="user_answer" value="Yes" class="response"/>
+  <input type="submit" name="user_answer" value="No" class="response"/>
+  <input type="submit" name="user_answer" value="Unsure" class="response"/>
   <br>
   <br>
-  <input type="submit" name="user_answer" value="Unsure" />
 </form>
-<p>{{ more_information}}</p>
+<p>{{more_information}}</p>
 <div>
   {% if previous_responses %}
     <h5>Previous responses:</h5>
@@ -25,7 +26,7 @@
 <br>
 
 <form action="/restart" method="post">
-  <input type="submit" name="Start over" value="Start over" />
+  <input type="submit" name="Start over" value="Start over" id="restart" />
 </form>
 
 {% endblock %}
