@@ -1,10 +1,11 @@
 from typing import Any, List, Tuple
 
-from flask import render_template, request, redirect, make_response, url_for
+from flask import render_template, request, redirect, make_response, url_for, send_from_directory
 from pandas import Series, DataFrame
 import json
 from app import app
 import pandas as pd
+import os
 
 questions_df = pd.read_csv('questions.csv')
 results_df = pd.read_csv('results.csv')
@@ -109,3 +110,8 @@ def preregister():
 @app.route('/contact')
 def contact():
     return render_template('contact.html', title='Contact', contact_form_url=contact_form_url)
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
