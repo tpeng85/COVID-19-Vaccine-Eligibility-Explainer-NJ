@@ -13,12 +13,14 @@
 </form>
 <p>{{ more_information}}</p>
 <div>
-  <h5>Previous responses:</h5>
-  <ul>
-    {% for response in previous_responses %}
-    <li><b>Question:</b> {{ response[0] }} <br> <b>Answer: {{ response[1] }}</b></li>
-    {% endfor %}
-  </ul>
+  {% if previous_responses %}
+    <h5>Previous responses:</h5>
+    <ul>
+      {% for response in previous_responses %}
+      <li><b>Question:</b> {{ response[0] }} <br> <b>Answer: {{ response[1] }}</b></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
 <br>
 
