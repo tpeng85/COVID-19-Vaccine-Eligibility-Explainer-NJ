@@ -1,4 +1,5 @@
 TODO
+*.DS_STORE
 .~lock.*
 venv/
 __pycache__/
