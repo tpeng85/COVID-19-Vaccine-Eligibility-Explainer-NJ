@@ -3,7 +3,9 @@
 {% block content %}
 
 <h1>{{status}}</h1>
-<h3>More information: {{more_status_information}}</h3>
+{% if more_status_information %}
+  <h3>More information: {{more_status_information}}</h3>
+{% endif %}
 <form action="/restart" method="post">
   <input type="submit" name="Start over" value="Start over" />
 </form>
