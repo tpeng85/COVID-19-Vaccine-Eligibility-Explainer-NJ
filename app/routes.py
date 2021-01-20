@@ -115,6 +115,10 @@ def contact():
 def how_to_help():
     return render_template('how-to-help.html', title='How to help')
 
+@app.route('/availability')
+def availability():
+    return render_template('availability.html', title='Availability')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
