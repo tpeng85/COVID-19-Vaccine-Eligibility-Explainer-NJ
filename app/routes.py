@@ -111,6 +111,9 @@ def preregister():
 def contact():
     return render_template('contact.html', title='Contact', contact_form_url=contact_form_url)
 
+@app.route('/how-to-help')
+def how_to_help():
+    return render_template('how-to-help.html', title='How to help')
 
 @app.route('/favicon.ico')
 def favicon():
