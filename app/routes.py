@@ -10,6 +10,8 @@ import os
 questions_df = pd.read_csv('questions.csv')
 results_df = pd.read_csv('results.csv')
 contact_form_url = 'https://docs.google.com/forms/d/e/1FAIpQLSfI-ozQYUJ1QnrFwuVbKEkK3n-LBke1g0PDkQH_D5fXHXP1UA/viewform?embedded=true'
+availability_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1yXz70DQqF_I6hvVfXPADw6QNZ6R63bx1v27qBfdxBuc/edit#gid=0'
+availability_spreadsheet_iframe_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTsI9hOBusjzmiRdlK4jCA0wwPgOu6ieAYzQ-AgQ4uV0F5e5tooCSjgt3pDiwNduF5fIK2ByZS8IRSM/pubhtml?gid=0&amp;single=true&amp;widget=true'
 
 def get_cell_contents_from_single_row(row: Series, column_name: str) -> Any:
     cell_contents = row.iloc[0][column_name]
@@ -117,7 +119,7 @@ def how_to_help():
 
 @app.route('/availability')
 def availability():
-    return render_template('availability.html', title='Availability')
+    return render_template('availability.html', title='Availability', availability_spreadsheet_url=availability_spreadsheet_url, availability_spreadsheet_iframe_url=availability_spreadsheet_iframe_url)
 
 @app.route('/phone-script')
 def phone_script():
