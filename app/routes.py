@@ -119,6 +119,10 @@ def how_to_help():
 def availability():
     return render_template('availability.html', title='Availability')
 
+@app.route('/phone-script')
+def phone_script():
+    return redirect('https://docs.google.com/document/d/1GJuIIM8-AGcTKe2ufJt7e3SQAtnOh6X9VqigHrbKyqc/edit?usp=sharing')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
