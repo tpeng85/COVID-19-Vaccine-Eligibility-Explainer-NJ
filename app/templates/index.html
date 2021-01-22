@@ -2,29 +2,30 @@
 
 {% block content %}
 
-<h1>New Jersey Vaccine Information</h1>
+<h1>New Jersey COVID-19 Vaccine Information</h1>
 <br>
 
 <div class="row">
   <div class="col-sm-6">
     <div>
-      <p>
-        If you're an adult who lives, works, or studies in New Jersey, you will be eligible for the COVID-19 vaccine. This website will tells you <b>when </b> and <b>where </b> you can get it!
-      </p>
       <h3>
-        <b>We read the fine print and make the phone calls so that you don't have to.</b>
+        <b>We track where and when you can get vaccines in NJ.</b> We update faster than official sources can.
       </h3>
       <p>
         Remember: the vaccine is <a href="https://covid19.nj.gov/faqs/nj-information/assistance-and-benefits/is-the-covid-19-vaccine-free-what-if-i-dont-have-insurance">
         <b>free</b></a><b>, whether or not you have insurance!</b>
       </p>
-      <form action="/questionnaire/0">
-        <input type="submit" value="Learn when I'm eligible" class="home-button"/>
-      </form>
-      <br>
       <button class="home-button">
         <a href="/availability" style="color:white">Learn where vaccines are available</a>
       </button>
+      <form action="/questionnaire/0">
+        <input type="submit" value="Learn when I'm eligible" class="home-button"/>
+      </form>
+
+      <button class="home-button">
+        <a href="/contact" style="color:white">Let us know if this was useful!</a>
+      </button>
+      <br>
     </div>
   </div>
   <div class="col-sm-6">
