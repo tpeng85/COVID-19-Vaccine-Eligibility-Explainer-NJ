@@ -1,4 +1,4 @@
-# COVID-19 Vaccine Phase Explainer website (New Jersey)
+# COVID-19 Vaccine website (New Jersey)
 
 ## What is this?
 
