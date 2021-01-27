@@ -103,7 +103,7 @@ def result(result_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="Home", availability_spreadsheet_url=availability_spreadsheet_url)
+    return render_template('index.html', title="Vaccinate NJ", availability_spreadsheet_url=availability_spreadsheet_url)
 
 @app.route('/preregister')
 def preregister():
