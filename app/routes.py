@@ -113,9 +113,9 @@ def preregister():
 def contact():
     return render_template('contact.html', title='Contact', contact_form_url=contact_form_url)
 
-@app.route('/how-to-help')
+@app.route('/FAQ')
 def how_to_help():
-    return render_template('how-to-help.html', title='How to help')
+    return render_template('FAQ.html', title='Frequently asked questions')
 
 @app.route('/availability')
 def availability():
